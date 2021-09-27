@@ -1,5 +1,6 @@
 package io.github.tuguzt.bullsandcows;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -19,7 +20,7 @@ public class Utils {
         for (var i = 1; i < digits.length;) {
             final var digit = randomFromRange(0, 10);
             var contains = IntStream.of(digits).anyMatch(x -> x == digit);
-            if (contains) {
+            if (!contains) {
                 digits[i] = digit;
                 i++;
             }
@@ -73,6 +74,13 @@ public class Utils {
         return bulls;
     }
 
+    /**
+     * Generates random number from the range between minimum and maximum values.
+     *
+     * @param min minimum value
+     * @param max maximum value
+     * @return random number from the range
+     */
     public static int randomFromRange(int min, int max) {
         assert min <= max;
         return random.nextInt(max - min) + min;
@@ -93,6 +101,7 @@ public class Utils {
      * @param digits array of digits that will be converted
      */
     private static int fromDigits(int[] digits) {
+        Objects.requireNonNull(digits);
         assert digits.length == 4;
         return digits[0] * 1_000 + digits[1] * 100 + digits[2] * 10 + digits[3];
     }
