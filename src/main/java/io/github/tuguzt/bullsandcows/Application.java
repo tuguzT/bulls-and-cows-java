@@ -2,6 +2,9 @@ package io.github.tuguzt.bullsandcows;
 
 import java.util.*;
 
+/**
+ * Class which represents all game logic.
+ */
 public class Application {
     private final List<String> commands;
 

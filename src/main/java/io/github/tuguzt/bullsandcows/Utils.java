@@ -12,6 +12,8 @@ public class Utils {
 
     /**
      * Generates the 4-digit secret number (digits are unique in this number).
+     *
+     * @return 4-digit secret number with unique digits
      */
     public static int generateSecretNumber() {
         var digits = new int[4];
@@ -90,6 +92,7 @@ public class Utils {
      * Converts a number into an array of digits.
      *
      * @param number 4-digit number that will be converted
+     * @return 4 digits of number in 4-dimensional array
      */
     public static int[] toDigits(int number) {
         return new int[] { number / 1_000, (number / 100) % 10, (number / 10) % 10, number % 10, };
@@ -99,6 +102,7 @@ public class Utils {
      * Converts a an array of digits into a number.
      *
      * @param digits array of digits that will be converted
+     * @return number which have 4 digits from digits
      */
     public static int fromDigits(int[] digits) {
         Objects.requireNonNull(digits);
