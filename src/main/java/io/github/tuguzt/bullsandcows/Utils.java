@@ -77,12 +77,12 @@ public class Utils {
     /**
      * Generates random number from the range between minimum and maximum values.
      *
-     * @param min minimum value
-     * @param max maximum value
+     * @param min minimum value (inclusive)
+     * @param max maximum value (exclusive)
      * @return random number from the range
      */
     public static int randomFromRange(int min, int max) {
-        assert min <= max;
+        assert min < max;
         return random.nextInt(max - min) + min;
     }
 
@@ -91,7 +91,7 @@ public class Utils {
      *
      * @param number 4-digit number that will be converted
      */
-    private static int[] toDigits(int number) {
+    public static int[] toDigits(int number) {
         return new int[] { number / 1_000, (number / 100) % 10, (number / 10) % 10, number % 10, };
     }
 
@@ -100,7 +100,7 @@ public class Utils {
      *
      * @param digits array of digits that will be converted
      */
-    private static int fromDigits(int[] digits) {
+    public static int fromDigits(int[] digits) {
         Objects.requireNonNull(digits);
         assert digits.length == 4;
         return digits[0] * 1_000 + digits[1] * 100 + digits[2] * 10 + digits[3];
