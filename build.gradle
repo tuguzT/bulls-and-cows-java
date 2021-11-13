@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.spotbugs' version '4.7.9'
 }
 
 group 'io.github.tuguzt.bullsandcows'
@@ -12,6 +13,20 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+spotbugs {
+    showStackTraces = true
+}
+
+spotbugsMain {
+    //noinspection GroovyAssignabilityCheck
+    reports {
+        html {
+            enabled = true
+            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+        }
+    }
 }
 
 test {
