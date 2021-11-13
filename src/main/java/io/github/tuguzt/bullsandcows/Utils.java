@@ -99,7 +99,7 @@ public class Utils {
     }
 
     /**
-     * Converts a an array of digits into a number.
+     * Converts an array of digits into a number.
      *
      * @param digits array of digits that will be converted
      * @return number which have 4 digits from digits
