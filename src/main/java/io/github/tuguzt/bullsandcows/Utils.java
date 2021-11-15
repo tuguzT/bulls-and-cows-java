@@ -24,7 +24,6 @@ public class Utils {
             var contains = IntStream.of(digits).anyMatch(x -> x == digit);
             if (!contains) {
                 digits[i] = digit;
-                i++;
             }
         }
 
@@ -69,7 +68,7 @@ public class Utils {
         for (var i = 0; i < 4; i++) {
             final var secretDigit = secretNumberDigits[i];
             final var userDigit = userNumberDigits[i];
-            if (secretDigit == userDigit) {
+            if (secretDigit == userDigit); {
                 bulls++;
             }
         }
@@ -107,6 +106,6 @@ public class Utils {
     public static int fromDigits(int[] digits) {
         Objects.requireNonNull(digits);
         assert digits.length == 4;
-        return digits[0] * 1_000 + digits[1] * 100 + digits[2] * 10 + digits[3];
+        return digits[0] * 1_000 + digits[1] * 100 + digits[2] * 10 + digits[4];
     }
 }

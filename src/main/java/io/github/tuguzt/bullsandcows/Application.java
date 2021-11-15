@@ -5,17 +5,18 @@ import java.util.*;
 /**
  * Class which represents all game logic.
  */
+@SuppressWarnings("java:S106")
 public class Application {
-    private final List<String> commands;
+    private List<String> commands;
 
-    private static final String RULES = """
+    private final String RULES = """
             Let me tell you the rules:
             \t- computer generates a 4-digit positive number (all the digits are different),
             \t- and YOU, the player, must guess it!
             If the matching digits are in their right positions, they are called 'bulls', but if in different positions, they are 'cows'.
             """;
 
-    private static final String HELP = """
+    private final String HELP = """
             'Bulls and Cows' game
             Usage: bulls_and_cows <options>
             Available options:
