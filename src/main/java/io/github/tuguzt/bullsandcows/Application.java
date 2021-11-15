@@ -8,21 +8,20 @@ import java.util.*;
 public class Application {
     private final List<String> commands;
 
-    private static final String RULES = """
-            Let me tell you the rules:
-            \t- computer generates a 4-digit positive number (all the digits are different),
-            \t- and YOU, the player, must guess it!
-            If the matching digits are in their right positions, they are called 'bulls', but if in different positions, they are 'cows'.
-            """;
+    private static final String RULES =
+            "Let me tell you the rules:\n" +
+            "\t- computer generates a 4-digit positive number (all the digits are different),\n" +
+            "\t- and YOU, the player, must guess it!\n" +
+            "If the matching digits are in their right positions, they are called 'bulls', " +
+            "but if in different positions, they are 'cows'.";
 
-    private static final String HELP = """
-            'Bulls and Cows' game
-            Usage: bulls_and_cows <options>
-            Available options:
-            \t--play <attempts> : play the game with given count of attempts (default is 4)
-            \t--help            : shows all available options
-            \t--rules           : shows the rules of the game
-            """;
+    private static final String HELP =
+            "'Bulls and Cows' game\n" +
+            "Usage: bulls_and_cows <options>\n" +
+            "Available options:\n" +
+            "\t--play <attempts> : play the game with given count of attempts (default is 4)\n" +
+            "\t--help            : shows all available options\n" +
+            "\t--rules           : shows the rules of the game";
 
     /**
      * Constructs an application instance.
@@ -33,19 +32,76 @@ public class Application {
         commands = Arrays.asList(args);
     }
 
+    public static Object Lock1 = new Object();
+    public static Object Lock2 = new Object();
+
+    private static class ThreadDemo1 extends Thread {
+        public void run() {
+            synchronized (Lock1) {
+                System.out.println("Thread 1: Holding lock 1...");
+
+                try { Thread.sleep(10); }
+                catch (InterruptedException e) {}
+                System.out.println("Thread 1: Waiting for lock 2...");
+
+                synchronized (Lock2) {
+                    System.out.println("Thread 1: Holding lock 1 & 2...");
+                }
+            }
+        }
+    }
+
+    private static class ThreadDemo2 extends Thread {
+        public void run() {
+            synchronized (Lock2) {
+                System.out.println("Thread 2: Holding lock 2...");
+
+                try { Thread.sleep(10); }
+                catch (InterruptedException e) {}
+                System.out.println("Thread 2: Waiting for lock 1...");
+
+                synchronized (Lock1) {
+                    System.out.println("Thread 2: Holding lock 1 & 2...");
+                }
+            }
+        }
+    }
+
+    private static class MyThread extends Thread {
+        public static int index;
+        public void run() {
+            for (int i = 0; i < 10; i++)
+                System.out.println(getName() + ":" + index++);
+        }
+    }
+
     /**
      * Executes main logic of the application.
      */
     public void run() {
         if (commands.isEmpty() || Objects.equals(commands.get(0), "--help")) {
             System.out.println(HELP);
+
+            ThreadDemo1 T1 = new ThreadDemo1();
+            ThreadDemo2 T2 = new ThreadDemo2();
+            T1.start();
+            T2.start();
+
             return;
         }
         if (Objects.equals(commands.get(0), "--rules")) {
             System.out.println(RULES);
+
+            new MyThread().start();
+            new MyThread().start();
+
             return;
         }
         if (Objects.equals(commands.get(0), "--play")) {
+            try {
+                System.out.println(1 / 0);
+            } catch (Exception ignored) {}
+
             var attemptsCount = 4;
             if (commands.size() == 2) {
                 try {
@@ -66,10 +122,10 @@ public class Application {
     }
 
     void play(int attemptsCount) {
-        System.out.println("""
-                Hello there!
-                You're playing in the 'Bulls and Cows' game!
-                """ + RULES +
+        System.out.println(
+                "Hello there!\n" +
+                "You're playing in the 'Bulls and Cows' game!\n" +
+                RULES +
                 "One important note: you have only " +
                 attemptsCount +
                 " attempts to guess the number!");

@@ -3,6 +3,14 @@ plugins {
     id 'com.github.spotbugs' version '4.7.9'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.github.tuguzt.bullsandcows.Main'
+        )
+    }
+}
+
 group 'io.github.tuguzt.bullsandcows'
 version '1.0'
 
